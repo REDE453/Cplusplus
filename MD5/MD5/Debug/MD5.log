@@ -1,0 +1,9 @@
+﻿  md5.cpp
+f:\c++代码\c-\md5\md5\md5.h(40): error C2039: “string”: 不是“std”的成员
+  f:\c++代码\c-\md5\md5\predefined c++ types (compiler internal)(256): note: 参见“std”的声明
+f:\c++代码\c-\md5\md5\md5.h(40): error C3646: “changellex”: 未知重写说明符
+f:\c++代码\c-\md5\md5\md5.h(40): error C2059: 语法错误:“(”
+f:\c++代码\c-\md5\md5\md5.h(40): error C2238: 意外的标记位于“;”之前
+f:\c++代码\c-\md5\md5\md5.cpp(93): warning C4309: “=”: 截断常量值
+  test.cpp
+  正在生成代码...
