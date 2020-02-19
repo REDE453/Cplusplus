@@ -1,0 +1,3 @@
+﻿  test.c
+e:\c代码\20190829\20190829\test.c(83): warning C4113: “void (__cdecl *)()”和“Func”的参数列表不同
+  20190829.vcxproj -> E:\C代码\20190829\Debug\20190829.exe
