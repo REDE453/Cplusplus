@@ -1,2 +1,4 @@
 ﻿  test.c
-  Pointer.vcxproj -> F:\c++代码\c-\Pointer\Debug\Pointer.exe
+f:\c++代码\c-\pointer\pointer\test.c(126): error C2371: “div”: 重定义；不同的基类型
+  f:\windows kits\10\include\10.0.17763.0\ucrt\stdlib.h(298): note: 参见“div”的声明
+f:\c++代码\c-\pointer\pointer\test.c(163): error C2440: “=”: 无法从“div_t”转换为“int”
