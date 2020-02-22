@@ -1,0 +1,7 @@
+﻿  Md5.cpp
+f:\c++代码\c-\filemanage\filemanage\md5.cpp(94): warning C4309: “=”: 截断常量值
+f:\c++代码\c-\filemanage\filemanage\md5.cpp(145): warning C4018: “<”: 有符号/无符号不匹配
+f:\c++代码\c-\filemanage\filemanage\md5.cpp(195): warning C4244: “=”: 从“std::streamsize”转换到“unit32”，可能丢失数据
+  test.cpp
+  正在生成代码...
+  FileManage.vcxproj -> F:\c++代码\c-\FileManage\Debug\FileManager.exe
