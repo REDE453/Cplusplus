@@ -29,4 +29,14 @@ void searchDir(const string& path, vector<string>& subFiles)
 	} while (_findnext(handle, &fileAttr) == 0);
 	_findclose(handle);
 }
-
+void deletefile(const char* filename)
+{
+	if (remove(filename) == 0)
+	{
+		cout << "delete file:" << filename << "success!" << endl;
+	}
+	else
+	{
+		perror("delete file failed!");
+	}
+}

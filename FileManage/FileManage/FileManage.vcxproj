@@ -116,6 +116,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="fileManager.h" />
     <ClInclude Include="fileutil.hpp" />
     <ClInclude Include="Md5.h" />
   </ItemGroup>

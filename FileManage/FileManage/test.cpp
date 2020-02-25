@@ -44,5 +44,5 @@ int main()
 	//testFileMD5();
 	testSearch();
 	system("pause");
-	return 0;
+ 	return 0;
 } 
