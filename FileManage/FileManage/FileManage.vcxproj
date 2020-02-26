@@ -121,6 +121,7 @@
     <ClInclude Include="Md5.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="fileManager.cpp" />
     <ClCompile Include="Md5.cpp" />
     <ClCompile Include="test.cpp" />
   </ItemGroup>

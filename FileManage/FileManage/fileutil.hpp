@@ -1,9 +1,10 @@
 #include<io.h>
 #include<vector>
+#include<unordered_set>
 #include<iostream>
 #include<string>
 using namespace std;
-void searchDir(const string& path, vector<string>& subFiles)
+void searchDir(const string& path, unordered_set<string>& subFiles)
 {
 	string matchFile = path + "\\" + "*.*";
 	_finddata_t fileAttr;
@@ -24,7 +25,7 @@ void searchDir(const string& path, vector<string>& subFiles)
 		}
 		else
 		{
-			subFiles.push_back(fileAttr.name);
+			subFiles.insert(fileAttr.name);
 		}
 	} while (_findnext(handle, &fileAttr) == 0);
 	_findclose(handle);

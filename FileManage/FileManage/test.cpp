@@ -2,6 +2,7 @@
 #include<Windows.h>
 #include"Md5.h"
 #include"fileutil.hpp"
+#include"fileManager.h"
 using namespace std;
 void testHex()
 {
@@ -36,6 +37,12 @@ void testSearch()
 	{
 		cout << f << endl;
 	}
+}
+void testFM()
+{
+	FileManager fm;
+	string path
+	fm.scannerDir(path)
 }
 int main()
 {
