@@ -20,7 +20,7 @@ void FileManager::getMd5files()
 	{
 		//计算新文件之前重置
 		_md5.reset();
-		_md5toFiles.insert(make_pair(_md5.getFileMD5(f), f));
+		_md5toFiles.insert(make_pair(_md5.getFileMD5, f));
 	}
 }
 //只保留内容重复文件的结果

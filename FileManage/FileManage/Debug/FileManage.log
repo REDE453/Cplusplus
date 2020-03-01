@@ -1,5 +1,6 @@
-﻿  Md5.cpp
-f:\c++代码\c-\filemanage\filemanage\md5.cpp(94): warning C4309: “=”: 截断常量值
-f:\c++代码\c-\filemanage\filemanage\md5.cpp(145): warning C4018: “<”: 有符号/无符号不匹配
-f:\c++代码\c-\filemanage\filemanage\md5.cpp(195): warning C4244: “=”: 从“std::streamsize”转换到“unit32”，可能丢失数据
-  FileManage.vcxproj -> F:\c++代码\c-\FileManage\Debug\FileManager.exe
+﻿  fileManager.cpp
+f:\c++代码\c-\filemanage\filemanage\filemanager.cpp(23): error C3867: “MD5::getFileMD5”: 非标准语法；请使用 "&" 来创建指向成员的指针
+f:\c++代码\c-\filemanage\filemanage\filemanager.cpp(23): error C2672: “make_pair”: 未找到匹配的重载函数
+  test.cpp
+f:\c++代码\c-\filemanage\filemanage\test.cpp : fatal error C1041: 无法打开程序数据库“F:\c++代码\c-\FileManage\FileManage\Debug\vc141.idb”；如果要将多个 CL.EXE 写入同一个 .PDB 文件，请使用 /FS
+  正在生成代码...

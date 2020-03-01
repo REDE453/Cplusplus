@@ -41,8 +41,8 @@ void testSearch()
 void testFM()
 {
 	FileManager fm;
-	string path
-	fm.scannerDir(path)
+	string path;
+	fm.scannerDir(path);
 }
 int main()
 {
