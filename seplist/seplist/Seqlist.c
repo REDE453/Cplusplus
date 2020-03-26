@@ -135,3 +135,49 @@ void SeqListPrint(SeqList* psl)
 	}
 	printf("\n");
 }
+//ц╟ещ
+void SeqListBubbleSort(SeqList* psl)
+{
+	assert(psl);
+	size_t end = psl->_size;
+	while (end > 1)
+	{
+		int flag = 0;
+		for (size_t i = 1; i < end; ++i)
+		{
+			if (psl->_array[i - 1] > psl->_array[i])
+			{
+				flag = 1;
+				SLDataType tmp = psl->_array[i - 1];
+				psl->_array[i - 1] = psl->_array[i];
+				psl->_array[i] = tmp;
+			}
+		}
+		if (0==flag)
+		{
+			break;
+			--end;
+		}
+	}
+}
+int SeqListBinaryFind(SeqList* psl, SLDataType x)
+{
+	assert(psl);
+	size_t start = 0;
+	size_t end = psl->_size - 1;
+	while (start <= end)
+	{
+		size_t mid = start + (end-start) / 2;
+		if (psl->_array[mid] == x)
+		{
+			return mid;
+		}
+		else if (psl->_array[mid] > x)
+		{
+			end = mid - 1;
+		}
+		else
+			start = mid + 1;
+	}
+	return -1;
+}

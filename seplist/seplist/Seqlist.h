@@ -8,7 +8,7 @@ typedef struct SeqList
 	size_t _capicity; // 容量空间的大小
 }SeqList;
 // 基本增删查改接口
-void SeqListInit(SeqList* psl, size_t capacity);
+void SeqListInit(SeqList* psl);
 void SeqListDestory(SeqList* psl);
 void CheckCapacity(SeqList* psl);
 void SeqListPushBack(SeqList* psl, SLDataType x);
@@ -20,4 +20,5 @@ void SeqListInsert(SeqList* psl, size_t pos, SLDataType x);
 void SeqListErase(SeqList* psl, size_t pos);
 void SeqListRemoveAll(SeqList* psl, SLDataType x);
 void SeqListPrint(SeqList* psl);
-// 扩展面试题实现
+void SeqListBubbleSort(SeqList* psl);
+int SeqListBinaryFind(SeqList* psl, SLDataType x);
