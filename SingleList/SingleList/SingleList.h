@@ -10,8 +10,8 @@ typedef struct SingleList
 {
 	SingleListNode* _head;
 } SingleList;
-void SingleListInit(SingleList* sl);DDDD
-void SingleListDestroy();
+void SingleListInit(SingleList* sl);
+void SingleListDestroy(SingleList* sl);
 SingleListNode* CreatNode(DataType x);
 void SingleListPushBack(SingleList* sl, DataType x);
 void SingleListPopBack(SingleList* sl);
