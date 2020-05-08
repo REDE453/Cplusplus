@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include<Windows.h>
+//int check_sys()
+//{
+//	int i = 1;
+//	return (*(char *)&i);
+//}
+//int main()
+//{
+//	int ret = check_sys();
+//	if(ret == 1)
+//	{
+//		printf("小端\n"); 
+//	}
+//	else
+//	{
+//		printf("大端\n");
+//	}
+//	system("pause");
+//	return 0;
+//}
+int check_sys()
+{
+	union
+	{
+		int i;
+		char c;
+	}un;
+	un.i = 1;
+	return un.c;
+}
+int main()
+{
+	int ret = check_sys();
+	if(ret == 1)
+	{
+		printf("小端\n"); 
+	}
+	else
+	{
+		printf("大端\n");
+	}
+	system("pause");
+	return 0;
+}
