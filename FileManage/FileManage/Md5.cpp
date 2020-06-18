@@ -131,7 +131,7 @@ std::string MD5::changeHex(unit32 n)
 		//×Ö½ÚÖ®¼äÄæĞò
 		ret += curRet;
 	}
-	return ret;
+	return ret;33
 }
 std::string MD5::getStringMD5(const std::string& str)
 {
@@ -155,7 +155,7 @@ std::string MD5::getStringMD5(const std::string& str)
 }
 std::string MD5::getFileMD5(const char* filePath)
 {
-	std::ifstream fin(filePath, std::ifstream::binary);
+ 	std::ifstream fin(filePath, std::ifstream::binary);
 	if (!fin.is_open())
 	{
 		std::cout << filePath;
