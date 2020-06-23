@@ -1,6 +1,8 @@
 #pragma once
-#include"stdio.h"
+#include<stdio.h>
+#include<stdlib.h>
 #include<assert.h>
+#include<malloc.h>
 #include<Windows.h>
 //支持动态增长的栈
 typedef int STDataType;

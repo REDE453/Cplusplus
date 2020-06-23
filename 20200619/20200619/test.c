@@ -5,4 +5,5 @@ int main()
 	//TestStack();
 	TestQueue();
 	system("pause");
+	return 0;
 }
