@@ -1,0 +1,4 @@
+﻿  test.cpp
+f:\c++代码\c-\20200626\20200626\test.cpp(82): warning C4244: “初始化”: 从“double”转换到“const int”，可能丢失数据
+f:\c++代码\c-\20200626\20200626\test.cpp(100): warning C4172: 返回局部变量或临时变量的地址: c
+  20200626.vcxproj -> F:\c++代码\c-\20200626\Debug\20200626.exe
