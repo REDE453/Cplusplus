@@ -212,23 +212,30 @@ public:
 	}
 	Date operator+(int day)
 	{
-		Date ret = *this;    //拷贝一个构造一个ret;
-		ret._day += day;
-		while (ret._day > GetMonthDay(ret._year, ret._month))
-		{
-			//如果日期的天不合法，就需要往月进位
-			ret._day -= GetMonthDay(ret._year, ret._month);
-			ret._month++;
-			if (13 == ret._month)
-			{
-				ret._year++;
-				ret._month = 1;
-			}
-		}
+		Date ret(*this);
+		ret += day;     //ret.operator+=(day);
 		return ret;
+		//Date ret = *this;    //拷贝一个构造一个ret;
+		//ret._day += day;
+		//while (ret._day > GetMonthDay(ret._year, ret._month))
+		//{
+		//	//如果日期的天不合法，就需要往月进位
+		//	ret._day -= GetMonthDay(ret._year, ret._month);
+		//	ret._month++;
+		//	if (13 == ret._month)
+		//	{
+		//		ret._year++;
+		//		ret._month = 1;
+		//	}
+		//}
+		//return ret;
 	}
 	Date& operator+=(int day)
 	{
+		if (day < 0)
+		{
+			return *this -= -day;
+		}
 		_day += day;
 		while (_day > GetMonthDay(_year, _month))
 		{
@@ -242,6 +249,87 @@ public:
 		}
 		return *this;
 	}
+	Date operator-(int day)
+	{
+		Date ret(*this);
+		ret -= day;
+		return ret;
+		/*Date ret = *this;
+		ret._day -= day;
+		while (ret._day <= 0)
+		{
+			--ret._month;
+			if (0 == ret._month)
+			{
+				--ret._year;
+				ret._month = 12;
+			}
+			ret._day += GetMonthDay(ret._year, ret._month);
+		}
+		return ret;*/
+	}
+	Date& operator-=(int day)
+	{
+		if (day < 0)
+		{
+			return *this -= -day;
+		}
+		_day -= day;
+		while (_day<=0)      //day不合法
+		{
+			--_month;
+			if (_month == 0)
+			{
+				--_year;
+				_month = 12;
+			}
+			_day += GetMonthDay(_year, _month);
+		}
+		return *this;
+	}
+	//++d1;=>d1.operator++(&d)
+	Date& operator++()
+	{
+		*this += 1;
+		return *this;    //返回加之后的值
+	}
+	//d1++==>d1.operator++(&d,0)
+	Date operator++(int)     //为了构成重载
+	{
+		Date tmp(*this);
+		*this += 1;
+		return tmp;  //返回加之前的值
+	}
+	Date& operator--()
+	{
+		*this -= 1;
+		return *this;
+	}
+	Date operator--(int)
+	{
+		Date tmp(*this);
+		*this -= 1;
+		return tmp;
+	}
+	int  operator-(const Date& d)
+	{
+		Date max = *this;     //拷贝构造
+		Date min = d;
+		int flag = 1;
+		if (*this < d)
+		{
+			max = d;     //赋值
+			min = *this;
+			flag = -1;
+		}
+		int n = 0;
+		while (min != max)
+		{
+			++min;//调用前置++少调用一次拷贝构造
+			++n;
+		}
+		return n*flag;
+	}
 		void printf()
 	{
 		cout << _year << "-" << _month << "-" << _day<<endl;
@@ -254,20 +342,27 @@ private:
 int main()
 {
 	Date d1(2020, 6, 28);
-	d1.printf();
-	Date d2(2020, 6, 30);
-	d2.printf();
+	Date d2(2019, 6, 28);
+	cout << d1 - d2 << endl;
+	cout << d2 - d1 << endl;
+
+	//d1.printf();
+	//d1 += -100;
+	//d1.printf();
+	//d1 -= -100;
+	//d1.printf();
+	//++d1;
+	//d1++;
+	/*d1--;
+	d1.printf();*/
+	 //Date d2=d1-=10;
+	 //d2.printf();
 	//cout << (d1 < d2) << endl;
 	//cout << (d1 > d2) << endl;
 	//cout << (d1 == d2) << endl;
 	//cout << (d1 != d2) << endl;
 	//cout << (d1 <= d2) << endl;
 	//cout << (d1 >= d2) << endl;
-	//Date d3=d1 + 100;
-	Date d3;
-	d3.printf();
-	d3 = d1 = d2;
-	d3.printf();
 	system("pause");
 	return 0;
 }
