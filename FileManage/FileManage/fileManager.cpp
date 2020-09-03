@@ -47,9 +47,9 @@ void FileManager::getCopyList()
 			it = pairIt.second;
 		}
 		else {
+			_files.erase(it->second);
 			//erase返回值被删除元素的下一个位置
 			it = _md5toFiles.erase(it);
-			_files.erase(it->second);
 		}
 	}
 
@@ -57,20 +57,97 @@ void FileManager::getCopyList()
 //所有的删除，保证一个文件不存在副本
 void FileManager::deleteByname(const std::string& name)
 {
-
+	if (_filestoMd5.count(name) == 0)
+	{
+		cout << name << "not exist!" << endl;
+		return;
+	}
+	string curMD5 = _filestoMd5[name];
+	cout << name << "-->" << _md5toFiles.count(curMD5) << endl;
+	auto pairIt = _md5toFiles.equal_range(curMD5);
+	auto curIt = pairIt.first;
+	int count = 0;
+	while (curIt != pairIt.second)
+	{
+		if (curIt->second != name)
+		{
+			_files.erase(curIt->second);
+			_filestoMd5.erase(curIt->second);
+			deletefile(curIt->second.c_str);
+		}
+		++curIt;
+	}
+	curIt = pairIt.first;
+	while (curIt != pairIt.second)
+	{
+		if (curIt->second != name)
+		{
+			//key-->md5
+			_md5toFiles.erase(curIt);
+			pairIt = _md5toFiles.equal_range(curMD5);
+			curIt = pairIt.first;
+		}
+		++curIt;
+	}
+	cout << "delete files:" << count << endl;
 }
 void FileManager::deleteByMD5(const std::string& md5)
 {
-
+	//md5->files
+	if (_md5toFiles.count(md5) == 0)
+	{
+		cout << md5 << "not exist" << endl;
+		return;
+	}
+	//删除只保留一份，保留第一份
+	auto pairIt = _md5toFiles.equal_range(md5);
+	cout << md5 << "--->" << _md5toFiles.count(md5) << endl;
+	auto curIt = pairIt.first;
+	++curIt;
+	while (curIt != pairIt.second)
+	{
+		_files.erase(curIt->second);
+		_filestoMd5.erase(curIt->second);
+		//从文件磁盘删除
+		deletefile(curIt->second.c_str());
+		++curIt;
+	}
+	//更新MD5->files
+	curIt = pairIt.first;
+	++curIt;
+	//erase(first,last)-->删除区间值[first,last)
+	_md5toFiles.erase(curIt, pairIt.second);
+	std::cout << "delete files :" << count << endl;
 }
+void FileManager::deleteByMD5V2(const string& md5)
+{
+	//md5->files
+	if (_md5toFiles.count(md5) == 0)
+	{
+		cout << md5 << "not exist" << endl;
+		return;
+	}
+	auto it = _md5toFiles.find(md5);
+	deleteByname(it->second);
+}
+//每个重复文件只保留一个
 void FileManager::deleteAllCopy()
 {
-
+	unordered_set<std::string>md5Set;
+	//找出所以MD5值
+	for (const auto& p : _md5toFiles)
+	{
+		md5Set.insert(p.first);
+	}
+	for (const auto& md5 :: md5Set)
+	{
+		deleteByMD5(md5);
+	}
 }
 //模糊删除：删除所有模糊匹配“matchName"所有文件的副本
 void FileManager::deleteByMatchName(const std::string& matchName)
 {
-
+	
 }
 void FileManager::showCopyList()
 {

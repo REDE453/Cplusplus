@@ -12,10 +12,11 @@ public:
 	//所有的删除，保证一个文件不存在副本
 	void deleteByname(const std::string& name);
 	void deleteByMD5(const std::string& md5);
+	void deleteByMD5V2(const string& md5);
 	void deleteAllCopy();
 	//模糊删除：删除所有模糊匹配“matchName"所有文件的副本
 	void deleteByMatchName(const std::string& matchName);
-	void showCopyList();
+	void showCopyList(); 
 	void showAllFile();
 	void showMd5Map();
 private:
