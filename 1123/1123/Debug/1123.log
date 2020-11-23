@@ -1,0 +1,4 @@
+﻿  test.cpp
+f:\c++代码\c-\1123\1123\test.cpp(35): warning C4018: “<”: 有符号/无符号不匹配
+f:\c++代码\c-\1123\1123\test.cpp(40): warning C4018: “<=”: 有符号/无符号不匹配
+  1123.vcxproj -> F:\c++代码\c-\1123\Debug\1123.exe
