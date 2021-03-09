@@ -131,7 +131,7 @@ std::string MD5::changeHex(unit32 n)
 		//×Ö½ÚÖ®¼äÄæĞò
 		ret += curRet;
 	}
-	return ret;33
+	return ret; 33;
 }
 std::string MD5::getStringMD5(const std::string& str)
 {
