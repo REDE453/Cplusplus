@@ -1,6 +1,65 @@
 ﻿  fileManager.cpp
+f:\c++代码\c-\filemanage\filemanage\filemanager.h(15): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+f:\c++代码\c-\filemanage\filemanage\filemanager.h(15): error C2143: 语法错误: 缺少“,”(在“&”的前面)
 f:\c++代码\c-\filemanage\filemanage\filemanager.cpp(23): error C3867: “MD5::getFileMD5”: 非标准语法；请使用 "&" 来创建指向成员的指针
 f:\c++代码\c-\filemanage\filemanage\filemanager.cpp(23): error C2672: “make_pair”: 未找到匹配的重载函数
+f:\c++代码\c-\filemanage\filemanage\filemanager.cpp(76): error C3867: “std::basic_string<char,std::char_traits<char>,std::allocator<char>>::c_str”: 非标准语法；请使用 "&" 来创建指向成员的指针
+f:\c++代码\c-\filemanage\filemanage\filemanager.cpp(120): error C2679: 二进制“<<”: 没有找到接受“overloaded-function”类型的右操作数的运算符(或没有可接受的转换)
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ostream(508): note: 可能是“std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(std::basic_streambuf<char,std::char_traits<char>> *)”
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ostream(480): note: 或    “std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(const void *)”
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ostream(460): note: 或    “std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(long double)”
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ostream(440): note: 或    “std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(double)”
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ostream(420): note: 或    “std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(float)”
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ostream(400): note: 或    “std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(unsigned __int64)”
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ostream(380): note: 或    “std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(__int64)”
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ostream(360): note: 或    “std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(unsigned long)”
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ostream(340): note: 或    “std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(long)”
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ostream(320): note: 或    “std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(unsigned int)”
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ostream(295): note: 或    “std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(int)”
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ostream(275): note: 或    “std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(unsigned short)”
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ostream(241): note: 或    “std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(short)”
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ostream(221): note: 或    “std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(bool)”
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ostream(215): note: 或    “std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(std::ios_base &(__cdecl *)(std::ios_base &))”
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ostream(209): note: 或    “std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(std::basic_ios<char,std::char_traits<char>> &(__cdecl *)(std::basic_ios<char,std::char_traits<char>> &))”
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ostream(204): note: 或    “std::basic_ostream<char,std::char_traits<char>> &std::basic_ostream<char,std::char_traits<char>>::operator <<(std::basic_ostream<char,std::char_traits<char>> &(__cdecl *)(std::basic_ostream<char,std::char_traits<char>> &))”
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ostream(1047): note: 或    “std::basic_ostream<char,std::char_traits<char>> &std::operator <<<char,std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,const std::error_code &)”
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ostream(981): note: 或    “std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,unsigned char)”
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ostream(974): note: 或    “std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,const unsigned char *)”
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ostream(967): note: 或    “std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,signed char)”
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ostream(960): note: 或    “std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,const signed char *)”
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ostream(921): note: 或    “std::basic_ostream<char,std::char_traits<char>> &std::operator <<<char,std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,_Elem)”
+          with
+          [
+              _Elem=char
+          ]
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ostream(874): note: 或    “std::basic_ostream<char,std::char_traits<char>> &std::operator <<<char,std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,const _Elem *)”
+          with
+          [
+              _Elem=char
+          ]
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ostream(834): note: 或    “std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,char)”
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ostream(787): note: 或    “std::basic_ostream<char,std::char_traits<char>> &std::operator <<<std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,const char *)”
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ostream(749): note: 或    “std::basic_ostream<char,std::char_traits<char>> &std::operator <<<char,std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,char)”
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ostream(702): note: 或    “std::basic_ostream<char,std::char_traits<char>> &std::operator <<<char,std::char_traits<char>>(std::basic_ostream<char,std::char_traits<char>> &,const char *)”
+  f:\c++代码\c-\filemanage\filemanage\filemanager.cpp(120): note: 尝试匹配参数列表“(std::basic_ostream<char,std::char_traits<char>>, overloaded-function)”时
+f:\c++代码\c-\filemanage\filemanage\filemanager.cpp(123): error C2511: “void FileManager::deleteByMD5V2(const std::string &)”:“FileManager”中没有找到重载的成员函数
+  f:\c++代码\c-\filemanage\filemanage\filemanager.h(6): note: 参见“FileManager”的声明
+f:\c++代码\c-\filemanage\filemanage\filemanager.cpp(131): error C3536: “it”: 初始化之前无法使用
+f:\c++代码\c-\filemanage\filemanage\filemanager.cpp(142): error C2653: “md5”: 不是类或命名空间名称
+f:\c++代码\c-\filemanage\filemanage\filemanager.cpp(142): error C2530: “md5Set”: 必须初始化引用
+f:\c++代码\c-\filemanage\filemanage\filemanager.cpp(142): error C3531: “md5Set”: 类型包含“auto”的符号必须具有初始值设定项
+f:\c++代码\c-\filemanage\filemanage\filemanager.cpp(142): error C2143: 语法错误: 缺少“;”(在“)”的前面)
+f:\c++代码\c-\filemanage\filemanage\filemanager.cpp(143): error C2143: 语法错误: 缺少“;”(在“{”的前面)
+f:\c++代码\c-\filemanage\filemanage\filemanager.cpp(143): error C2143: 语法错误: 缺少“)”(在“{”的前面)
+f:\c++代码\c-\filemanage\filemanage\filemanager.cpp(144): error C2065: “md5”: 未声明的标识符
+  Md5.cpp
+f:\c++代码\c-\filemanage\filemanage\md5.cpp(94): warning C4309: “=”: 截断常量值
+f:\c++代码\c-\filemanage\filemanage\md5.cpp(145): warning C4018: “<”: 有符号/无符号不匹配
+f:\c++代码\c-\filemanage\filemanage\md5.cpp(195): warning C4244: “=”: 从“std::streamsize”转换到“unit32”，可能丢失数据
   test.cpp
-f:\c++代码\c-\filemanage\filemanage\test.cpp : fatal error C1041: 无法打开程序数据库“F:\c++代码\c-\FileManage\FileManage\Debug\vc141.idb”；如果要将多个 CL.EXE 写入同一个 .PDB 文件，请使用 /FS
+f:\c++代码\c-\filemanage\filemanage\test.cpp(35): error C2664: “void searchDir(const std::string &,std::unordered_set<std::string,std::hash<_Kty>,std::equal_to<_Kty>,std::allocator<_Kty>> &)”: 无法将参数 2 从“std::vector<std::string,std::allocator<_Kty>>”转换为“std::unordered_set<std::string,std::hash<_Kty>,std::equal_to<_Kty>,std::allocator<_Kty>> &”
+          with
+          [
+              _Kty=std::string
+          ]
   正在生成代码...
