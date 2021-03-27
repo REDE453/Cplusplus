@@ -1,138 +1,150 @@
-#include"md5.h"
-#include<iostream>
-#include<math.h>
-#include<fstream>
-#include<string>
-//初始化static成员
+#define _CRT_SECURE_NO_WARNINGS
+#pragma once
+#include "Md5.h"
+#include <math.h>
+#include <iostream>
+#include <fstream>
+
 int MD5::_leftShift[64] = { 7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7,
 12, 17, 22, 5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20, 5, 9, 14, 20,
 4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23, 6, 10,
 15, 21, 6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21 };
+
 MD5::MD5()
 {
 	init();
 }
+
+//初始化
 void MD5::init()
 {
-	//初始化
-	for (int i = 0; i < 64; ++i)
+	//初始化k[i]
+	for (int i = 0; i < 64; i++)
 	{
-		_k[i] = static_cast<unit32>(abs(sin(i + 1))*pow(2, 32));
+		_k[i] = static_cast<uint32>(abs(sin(i + 1.0)) * pow(2.0, 32));
 	}
 	reset();
 }
+
+//重置
 void MD5::reset()
 {
-	//初始化A,B,C,D;
+	//初始化a b c d
 	_a = 0x67452301;
 	_b = 0xefcdab89;
 	_c = 0x98badcfe;
 	_d = 0x10325476;
 	//初始化chunk
 	memset(_chunk, 0, CHUNK_BYTE);
-	_LastByte = _totalByte = 0;
+	//重置
+	_lastByte = _totalByte = 0;
 }
-//一个chunk的MD5运算
-void MD5::calMD5(unit32 *chunk)
+
+//计算一个数据块的MD5值
+void MD5::calMD5(uint32* chunk)
 {
-	int a = _a, b = _b, c = _c, d = _d;
+	int a = _a;
+	int b = _b;
+	int c = _c;
+	int d = _d;
 	int f, g;
-	//4byte为一个处理单元
-	//执行64次操作
+	//四个字节处理一次，共执行64次
 	for (int i = 0; i < 64; ++i)
 	{
-		//位运算F,G,H,I
-		//0-15:F
-		/*if (0 <= i < 16) g = i;
-		if (16 <= i < 32) g = (5 * i + 1) % 16;
-		if (32 <= i < 48) g = (3 * i + 5) % 16;
-		if (48 <= i < 63) g = (7 * i) % 16;*/
+		//位运算 F G H I
+		//F 0 - 15
 		if (0 <= i && i <= 15)
 		{
 			f = F(b, c, d);
 			g = i;
 		}
-		//16-31:G
+		//G 16 - 31
 		else if (16 <= i && i <= 31)
 		{
 			f = G(b, c, d);
 			g = (5 * i + 1) % 16;
 		}
-		//32-47:H
+		//H 32 - 47
 		else if (32 <= i && i <= 47)
 		{
 			f = H(b, c, d);
 			g = (3 * i + 5) % 16;
 		}
-		//48-63:I
+		//I 48 - 63
 		else
 		{
 			f = I(b, c, d);
 			g = (7 * i) % 16;
 		}
-		//更新，加法，循环左移
+
+		//加法运算   循环左移
 		int tmp = d;
 		d = c;
 		c = b;
-		b = b + leftShift(a + f + _chunk[g] + _k[i], _leftShift[i]);
+		b = b + leftShift(a + f + chunk[g] + _k[i], _leftShift[i]);
 		a = tmp;
 	}
-	//更新A,B,C,D;
+	//更新a b c d
 	_a += a;
 	_b += b;
 	_c += c;
 	_d += d;
 }
-//进行填充再进行MD5计算
+
+//计算最后一块数据块的MD5值，先填充，后计算
 void MD5::calFinalMD5()
 {
-	//填充冗余信息：第一个bit位填1数据、剩余填0
-	//任何情况下都需要填充至少1byte的冗余信息
+	//填充冗余信息，至少填充一个字节冗余信息
+	//第一位补1，其余补0；
 	//获取第一个待填充的位置
-	char* p = _chunk + _LastByte;
-	//首先填充1byte的冗余信息：1000 0000
-	*p = 0x80;
-	int remainByte = CHUNK_BYTE - _LastByte;
-	//如果剩余字节数不够8byte->64bit,不能填充长度信息
-	//先处理一块数据,再去构建一个新的数据块，前446位填0.最后64位填长度信息
+	char* p = _chunk + _lastByte;
+	//l6进制的80 就是 1000 0000
+	*p++ = 0x80; //移动到下一个位置
+	//剩余填充信息
+	int  remainByte = CHUNK_BYTE - _lastByte - 1;
+	//判断剩余的长度是否够8个字节
+	//如果不够则需要再构建一个数据块，前448位填0，最后64位填长度信息
 	if (remainByte < 8)
 	{
-		//剩余位全部补零，处理一次
+		//先将剩余的全部补0；
 		memset(p, 0, remainByte);
-		calMD5((unit32*)_chunk);
-		//构建一个新的数据块
+		//计算当前数据块的MD5值
+		calMD5((uint32*)_chunk);
+		//开辟下一块数据块
 		memset(_chunk, 0, CHUNK_BYTE);
 	}
 	else
 	{
-		//剩余的位全部补0
+		//剩余位全部给0
 		memset(p, 0, remainByte);
 	}
-	//给数据块的最后64位填充原始长度信息
-	unsigned long long totalBits = _totalByte;
-	totalBits *= 8;
-	((unsigned long long*)_chunk)[7] = totalBits;
-	calMD5((unit32*)_chunk);
+	//给数据块最后64位填充文件原始长度信息
+	unsigned long long totaBits = _totalByte;
+	totaBits *= 8;
+	((unsigned long long*)_chunk)[7] = totaBits;
+	calMD5((uint32*)_chunk);
 }
-std::string MD5::changeHex(unit32 n)
- {
-	std::string strMap = "0123456789abcdef";
-	std::string ret;
-	//获取每一个字节数据
-	for (int i = 0; i < 4; ++i)
+
+//将整数转化成对应的16进制字符串
+std::string MD5::changeHex(uint32 n)
+{
+	std::string num = "0123456789abcdef";
+	std::string strNum;
+	std::string tmp = "00";
+	//每次获取4个比特位的数字信息，因为没4位的和正好表示一位16进制的数字，
+	//可以根据上述的字符串对应起来
+	//每一个字节则需要将16进制信息保存起来
+	for (int i = 0; i < 8; ++i)
 	{
-		//获取一个字节的数据
-		int curByte = n >> (i * 8) & 0xff;
-		//数据转成16进制字符
-		std::string curRet;
-		//除16高位  模16低位
-		curRet += strMap[curByte / 16];
-		curRet += strMap[curByte % 16];
-		//字节之间逆序
-		ret += curRet;
+		//保证字节内有序
+		tmp[1] = num[(n >> (i++ * 4) & 0x0f)];
+		tmp[0] = num[(n >> (i * 4) & 0x0f)];
+		//保存一个字节的信息，每个字节逆序
+		strNum += tmp;
 	}
-	return ret; 33;
+	return strNum;
 }
+
 std::string MD5::getStringMD5(const std::string& str)
 {
 	if (str.empty())
@@ -140,60 +152,43 @@ std::string MD5::getStringMD5(const std::string& str)
 		return changeHex(_a).append(changeHex(_b)).append(changeHex(_c)).append(changeHex(_d));
 	}
 	_totalByte = str.size();
-	unit32 chunkNum = _totalByte / CHUNK_BYTE;
+	uint32 chunkNum = _totalByte / CHUNK_BYTE;
 	const char* strPtr = str.c_str();
-	for (int i = 0; i < chunkNum; ++i)
+	//计算整块数据的MD5
+	for (int i = 0; i < chunkNum; i++)
 	{
 		memcpy(_chunk, strPtr + i * CHUNK_BYTE, CHUNK_BYTE);
-		calMD5((unit32*)_chunk);
+		calMD5((uint32*)_chunk);
 	}
-	//计算最后一块数据：需要填充
-	_LastByte = _totalByte % CHUNK_BYTE;
-	memcpy(_chunk, strPtr + chunkNum * CHUNK_BYTE, _LastByte);
+	//计算最后一块数据MD5
+	_lastByte = _totalByte % CHUNK_BYTE;
+	memcpy(_chunk, strPtr + chunkNum * CHUNK_BYTE, _lastByte);
 	calFinalMD5();
 	return changeHex(_a).append(changeHex(_b)).append(changeHex(_c)).append(changeHex(_d));
 }
+
 std::string MD5::getFileMD5(const char* filePath)
 {
- 	std::ifstream fin(filePath, std::ifstream::binary);
-	if (!fin.is_open())
+	std::ifstream fin(filePath, std::ifstream::binary);
+	if (fin.is_open())
 	{
 		std::cout << filePath;
-		perror("file open faild!");
-		return "";
+		perror("file open failed!");
 	}
 	while (!fin.eof())
 	{
-		//1.全部读进来：seek给，tellg获取文件大小！空间换时间；时间效率高
-		//fin.seekg(0, fin.end);
-		//unit32 length = fin.tellg();
-		//fin.seekg(0, fin.beg);
-		//char* totalData = new char[length];
-		//fin.read(totalData, length);
-		//for (int i = 0; i < chunkNum; ++i)
-		//{
-		//	memcpy(_chunk, strPtr + i * CHUNK_BYTE, CHUNK_BYTE);
-		//	calMD5((unit32*)_chunk);
-		//}
-		////计算最后一块数据：需要填充
-		//_LastByte = _totalByte % CHUNK_BYTE;
-		//memcpy(_chunk, strPtr + chunkNum * CHUNK_BYTE, _LastByte);
-		//calFinalMD5();
-		//return changeHex(_a).append(changeHex(_b)).append(changeHex(_c)).append(changeHex(_d));
-		//2.每次只读取一块数据；时间换空间；
 		fin.read(_chunk, CHUNK_BYTE);
-		//是否读取到64字节的内容
-		if (CHUNK_BYTE == fin.gcount())
+		//是否读取了64个字节
+		if (fin.gcount() != CHUNK_BYTE)
 		{
-			//说明为最后一块数据
+			//不足则为最后一块数据
 			break;
 		}
 		_totalByte += CHUNK_BYTE;
-		calMD5((unit32*)_chunk);
+		calMD5((uint32*)_chunk);
 	}
-	//gcount:可以调用多次，始终返回最近一次读入的字节数
-	_LastByte = fin.gcount();
-	_totalByte += _LastByte;
+	_lastByte = fin.gcount();
+	_totalByte += _lastByte;
 	calFinalMD5();
 	return changeHex(_a).append(changeHex(_b)).append(changeHex(_c)).append(changeHex(_d));
 }

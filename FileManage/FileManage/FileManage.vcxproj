@@ -117,11 +117,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="fileManager.h" />
-    <ClInclude Include="fileutil.hpp" />
+    <ClInclude Include="fileMangerTool.h" />
+    <ClInclude Include="fileutil.cpp" />
+    <ClInclude Include="fileutil.h" />
     <ClInclude Include="Md5.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="fileManager.cpp" />
+    <ClCompile Include="fileManagerTool.cpp" />
     <ClCompile Include="Md5.cpp" />
     <ClCompile Include="test.cpp" />
   </ItemGroup>

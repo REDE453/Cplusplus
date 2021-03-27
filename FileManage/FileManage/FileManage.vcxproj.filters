@@ -18,11 +18,17 @@
     <ClInclude Include="Md5.h">
       <Filter>源文件</Filter>
     </ClInclude>
-    <ClInclude Include="fileutil.hpp">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="fileManager.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="fileMangerTool.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="fileutil.cpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="fileutil.h">
+      <Filter>源文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -33,6 +39,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="fileManager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="fileManagerTool.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

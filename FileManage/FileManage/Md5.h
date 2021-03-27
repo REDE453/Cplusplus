@@ -1,63 +1,65 @@
-#pragma once
-#include<string>
+typedef unsigned int uint32;
 #define CHUNK_BYTE 64
-typedef unsigned int unit32;
+#include <string>
+
 class MD5
 {
 public:
-	//位运算函数FGHJ
-	//F(x, y, z) = (x & y) | ((~x) & z)
-	//G(x, y, z) = (x & z) | (y & (~z))
-	//H(x, y, z) = x ^ y ^ z
-	//I(x, y, z) = y ^ (x | (~z))
-	unit32 F(unit32 b, unit32 c, unit32 d)
+	MD5();
+	//运算函数
+	uint32 F(uint32 b, uint32 c, uint32 d)
 	{
-		return (b&c) | ((~b)&d);
+		return (b & c) | ((~b) & d);
 	}
-	unit32 G(unit32 b, unit32 c, unit32 d)
+	uint32 G(uint32 b, uint32 c, uint32 d)
 	{
-		return (b&d) | (c&(d));
+		return (b & d) | (c & (~d));
 	}
-	unit32 H(unit32 b, unit32 c, unit32 d)
+	uint32 H(uint32 b, uint32 c, uint32 d)
 	{
-		return b ^ c^d;
+		return b ^ c ^ d;
 	}
-	unit32 I(unit32 b, unit32 c, unit32 d)
+	uint32 I(uint32 b, uint32 c, uint32 d)
 	{
 		return c ^ (b | (~d));
 	}
 	//循环左移
-	unit32 leftShift(unit32 number, int ShiftNumber)
+	uint32 leftShift(uint32 number, int shifNumber)
 	{
-		return (number << ShiftNumber) | (number >> (32 - ShiftNumber));
+		return (number << shifNumber) | (number >> (32 - shifNumber));
 	}
-	MD5();
+	//初始化
 	void init();
+
+	//重置
 	void reset();
-	//一个chunk的MD5运算
-	void calMD5(unit32 *chunk);
-	//进行填充再进行MD5计算
+
+	//计算一个数据块的MD5值
+	void calMD5(uint32* chunk);
+
+	//计算最后一块数据块的MD5值，先填充，后计算
 	void calFinalMD5();
-	//把一个整形数据换成对应的16进制字符串
-	std::string changeHex(unit32 n);
+
+	//将整数转化成对应的16进制字符串
+	std::string changeHex(uint32 n);
+
 	std::string getStringMD5(const std::string& str);
 	std::string getFileMD5(const char* filePath);
 private:
-	//循环移位的位数
+	//循环左移的位数     
 	static int _leftShift[CHUNK_BYTE];
-	//k[i]:K[i] = floor(2^(32) * abs(sin(i + 1)))
-	unit32 _k[CHUNK_BYTE];
-	//数据块：64byte
+	//k[i] = floor(2 ^ 32) * (abs(sin(i + 1))
+	uint32 _k[CHUNK_BYTE];
+	//数据块：64字节
 	char _chunk[CHUNK_BYTE];
-	//填充相关的变量
+	//填充相关变量
 	//最后一块数据的字节数
-	unit32 _LastByte;
+	uint32 _lastByte;
 	//总字节数
-	unit32 _totalByte;
+	unsigned long long _totalByte;
 	//MD5信息
-	unit32 _a;
-	unit32 _b;
-	unit32 _c;
-	unit32 _d;
+	uint32 _a;
+	uint32 _b;
+	uint32 _c;
+	uint32 _d;
 };
-

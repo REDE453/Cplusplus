@@ -1,69 +1,70 @@
-#include"fileManager.h"
-#include"fileutil.hpp"
-void FileManager::scannerDir(const std::string& path)
+#define _CRT_SECURE_NO_WARNINGS 1
+#pragma once
+#include "fileManager.h"
+#include"fileutil.h"
+
+//扫描磁盘信息
+void FileManger::scannereDir(const std::string& path)
 {
 	//清理容器
 	_files.clear();
 	searchDir(path, _files);
-	cout << "all file" << endl;
-	showAllFile();
-	getMd5files();
-	showCopyList();
-	getCopyList();
-	cout << "copy list" << endl;
-	showAllFile();
+	getMd5toFiles();
+	getCopList();
 }
-void FileManager::getMd5files()
+
+void FileManger::getMd5toFiles()
 {
 	_md5toFiles.clear();
 	for (const auto& f : _files)
 	{
-		//计算新文件之前重置
+		//初始化MD5初始值
 		_md5.reset();
-		_md5toFiles.insert(make_pair(_md5.getFileMD5, f));
+		_md5toFiles.insert(make_pair(_md5.getFileMD5(f.c_str()), f));
 	}
 }
-//只保留内容重复文件的结果
-void FileManager::getCopyList()
+
+//获取重复的文件
+void FileManger::getCopList()
 {
-	_filestoMd5.clear();
-	//不要用范围for:涉及删除操作
+	_filestoMD5.clear();
 	auto it = _md5toFiles.begin();
 	while (it != _md5toFiles.end())
 	{
-		//查找每一个md5对应的所有文件结果
+		//查看MD5相同文件的个数是否大于1
 		if (_md5toFiles.count(it->first) > 1)
 		{
-			//equal_range 返回值：pair<beginIt,endIt>:(beginIt,endIt)--->迭代器遍历时连续
+			//查找每一个MD5对应文件的所有文件集合
 			auto pairIt = _md5toFiles.equal_range(it->first);
 			auto begin = pairIt.first;
 			while (begin != pairIt.second)
 			{
-				//只存放重复文件的映射关系
-				_filestoMd5.insert(make_pair(begin->second, begin->first));
+				//保存重复文件的映射关系
+				_filestoMD5.insert(make_pair(begin->second, begin->first));
 				++begin;
 			}
-			//下一个不同的md5值的起始位置
+			//移动到下一个不同MD5的文件的位置
 			it = pairIt.second;
 		}
-		else {
+		else
+		{
 			_files.erase(it->second);
-			//erase返回值被删除元素的下一个位置
 			it = _md5toFiles.erase(it);
+
 		}
 	}
-
 }
-//所有的删除，保证一个文件不存在副本
-void FileManager::deleteByname(const std::string& name)
+
+//删除重复的文件，相同内容的文件只保留一份
+void FileManger::deleteByName(const std::string& name)
 {
-	if (_filestoMd5.count(name) == 0)
+	if (_filestoMD5.count(name) == 0)
 	{
-		cout << name << "not exist!" << endl;
+		std::cout << name << "not exist !" << std::endl;
 		return;
 	}
-	string curMD5 = _filestoMd5[name];
-	cout << name << "-->" << _md5toFiles.count(curMD5) << endl;
+	std::string curMD5 = _filestoMD5[name];
+	std::cout << name << "---->" << _md5toFiles.count(curMD5) << std::endl;
 	auto pairIt = _md5toFiles.equal_range(curMD5);
 	auto curIt = pairIt.first;
 	int count = 0;
@@ -72,8 +73,9 @@ void FileManager::deleteByname(const std::string& name)
 		if (curIt->second != name)
 		{
 			_files.erase(curIt->second);
-			_filestoMd5.erase(curIt->second);
-			deletefile(curIt->second.c_str);
+			_filestoMD5.erase(curIt->second);
+			deleteFile(curIt->second.c_str());
+			++count;
 		}
 		++curIt;
 	}
@@ -82,104 +84,89 @@ void FileManager::deleteByname(const std::string& name)
 	{
 		if (curIt->second != name)
 		{
-			//key-->md5
 			_md5toFiles.erase(curIt);
 			pairIt = _md5toFiles.equal_range(curMD5);
 			curIt = pairIt.first;
 		}
 		++curIt;
 	}
-	cout << "delete files:" << count << endl;
+	std::cout << "delete files number: " << count << std::endl;
 }
-void FileManager::deleteByMD5(const std::string& md5)
+
+void FileManger::deleteByMD5(const std::string& md5)
 {
-	//md5->files
 	if (_md5toFiles.count(md5) == 0)
 	{
-		cout << md5 << "not exist" << endl;
-		return;
-	}
-	//删除只保留一份，保留第一份
-	auto pairIt = _md5toFiles.equal_range(md5);
-	cout << md5 << "--->" << _md5toFiles.count(md5) << endl;
-	auto curIt = pairIt.first;
-	++curIt;
-	while (curIt != pairIt.second)
-	{
-		_files.erase(curIt->second);
-		_filestoMd5.erase(curIt->second);
-		//从文件磁盘删除
-		deletefile(curIt->second.c_str());
-		++curIt;
-	}
-	//更新MD5->files
-	curIt = pairIt.first;
-	++curIt;
-	//erase(first,last)-->删除区间值[first,last)
-	_md5toFiles.erase(curIt, pairIt.second);
-	std::cout << "delete files :" << count << endl;
-}
-void FileManager::deleteByMD5V2(const string& md5)
-{
-	//md5->files
-	if (_md5toFiles.count(md5) == 0)
-	{
-		cout << md5 << "not exist" << endl;
+		std::cout << md5 << "not exist !" << std::endl;
 		return;
 	}
 	auto it = _md5toFiles.find(md5);
-	deleteByname(it->second);
+	deleteByName(it->second);
 }
-//每个重复文件只保留一个
-void FileManager::deleteAllCopy()
+
+
+//重复的文件只保留一份
+void FileManger::deleteAllCopy()
 {
-	unordered_set<std::string>md5Set;
-	//找出所以MD5值
+	std::unordered_set<std::string> md5set;
+	//找出所有的MD5值
 	for (const auto& p : _md5toFiles)
 	{
-		md5Set.insert(p.first);
+		md5set.insert(p.first);
 	}
-	for (const auto& md5 :: md5Set)
+	for (const auto& md5 : md5set)
 	{
 		deleteByMD5(md5);
 	}
 }
-//模糊删除：删除所有模糊匹配“matchName"所有文件的副本
-void FileManager::deleteByMatchName(const std::string& matchName)
+
+//模糊删除，删除包含输入字符的文件中重复的文件
+void FileManger::deleteByMatchName(const std::string& MatchName)
 {
-	
+	std::unordered_set<std::string> allFiles;
+	//遍历所有的文件
+	for (const auto& f : _files)
+	{
+		if (f.find(MatchName) != std::string::npos)
+			allFiles.insert(f);
+	}
+	for (const auto& f : allFiles)
+	{
+		if (_filestoMD5.count(f) != 0)
+		{
+			deleteByName(f);
+		}
+	}
 }
-void FileManager::showCopyList()
+
+void FileManger::showCopyList()
 {
 	auto it = _md5toFiles.begin();
 	int total = _md5toFiles.size();
 	int count = 0;
 	while (it != _md5toFiles.end())
 	{
-		//md5值相同的显示在一起
 		int idx = 1;
 		auto pairIt = _md5toFiles.equal_range(it->first);
 		auto curIt = pairIt.first;
-		cout << "cur MD5:" << it->first << endl;
+		std::cout << "cur MD5:" << it->first << std::endl;
 		while (curIt != pairIt.second)
 		{
-			cout << "\t第" << idx << "个文件；";
-			cout << curIt->second << endl;
+			std::cout << "\t第" << idx << "个文件" << std::endl;
+			std::cout << curIt->second << std::endl;
 			count++;
+			idx++;
+			curIt++;
 		}
 		it = pairIt.second;
 	}
-	cout << "文件总数：" << total << "\t" << count << endl;
+	std::cout << "文件总数: " << total << "\t" << count << std::endl;
 }
-void FileManager::showAllFile()
+void FileManger::showAllFile()
 {
 	for (const auto& f : _files)
 	{
-		cout << f << endl;
+		std::cout << f << std::endl;
 	}
-	cout << "file count:" << _files.size() << endl;
-}
-void showMd5Map()
-{
-	cout << endl;
+	std::cout << "file count: " << _files.size() << std::endl;
 }
